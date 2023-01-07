@@ -11,6 +11,7 @@ class LoginViewController: UIViewController {
         textField.heightAnchor.constraint(equalToConstant: 50).isActive = true
         textField.layer.borderWidth = 0.5
         textField.layer.borderColor = UIColor.gray.cgColor
+        textField.layer.backgroundColor = UIColor.systemBackground.cgColor
         textField.layer.cornerRadius = 5
         return textField
     }()
@@ -22,6 +23,7 @@ class LoginViewController: UIViewController {
         textField.heightAnchor.constraint(equalToConstant: 50).isActive = true
         textField.layer.borderWidth = 0.5
         textField.layer.borderColor = UIColor.gray.cgColor
+        textField.layer.backgroundColor = UIColor.systemBackground.cgColor
         textField.layer.cornerRadius = 5
         textField.isSecureTextEntry = true
         return textField
@@ -46,10 +48,11 @@ class LoginViewController: UIViewController {
     }()
     
     private let titleLabel: UILabel = {
-            let label = UILabel()
-            label.text = "Recipe Master"
-            label.font = UIFont.systemFont(ofSize: 30, weight: .bold)
-            return label
+        let label = UILabel()
+        label.text = "Recipe Master"
+        label.font = UIFont.systemFont(ofSize: 30, weight: .bold)
+        label.textColor = .systemBackground
+        return label
     }()
     
     
@@ -57,8 +60,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
        
-        self.view.backgroundColor = .white
-
+    
         self.view.addSubview(titleLabel)
         self.view.addSubview(usernameTextField)
         self.view.addSubview(passwordTextField)

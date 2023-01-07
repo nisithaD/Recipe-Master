@@ -11,10 +11,11 @@ class FoodCardCell: UITableViewCell {
     static let identifier = "FoodCardCell"
     static let height: CGFloat = 250
     
+    
    let cardView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .white
         view.layer.cornerRadius = 8
         view.layer.shadowRadius = 2
         view.layer.shadowOpacity = 0.2
@@ -36,7 +37,8 @@ class FoodCardCell: UITableViewCell {
     var recipeTitleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+        label.textColor = .black
         return label
     }()
     
