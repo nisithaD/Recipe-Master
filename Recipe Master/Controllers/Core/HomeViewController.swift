@@ -19,7 +19,7 @@ class HomeViewController: UIViewController {
     
     private let searchController:UISearchController = {
         let controller = UISearchController(searchResultsController: BrowseResultViewController())
-        controller.searchBar.placeholder = "Search foods"
+        controller.searchBar.placeholder = "Search Foods"
         controller.searchBar.searchBarStyle = .minimal
         controller.hidesNavigationBarDuringPresentation = false
         return controller
@@ -52,7 +52,7 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationItem.largeTitleDisplayMode = .always
+        navigationItem.largeTitleDisplayMode = .always
     }
     
 }
@@ -72,6 +72,7 @@ extension HomeViewController:UITableViewDataSource,UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        let cell = tableView.cellForRow(at: indexPath)
+        print(indexPath)
         let recipeSingleViewController = RecipeSingleViewController()
         self.navigationController?.pushViewController(recipeSingleViewController,animated: true)
     }
