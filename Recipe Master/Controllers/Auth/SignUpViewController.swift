@@ -50,6 +50,15 @@ class SignUpViewController: UIViewController {
         return button
     }()
     
+    private let loginButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Log In", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .systemGray
+        button.layer.cornerRadius = 5
+        return button
+    }()
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Recipe Master"
@@ -69,6 +78,7 @@ class SignUpViewController: UIViewController {
         self.view.addSubview(passwordTextField)
         self.view.addSubview(passwordConfirmTextField)
         self.view.addSubview(signUpButton)
+        self.view.addSubview(loginButton)
         
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -76,6 +86,7 @@ class SignUpViewController: UIViewController {
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         passwordConfirmTextField.translatesAutoresizingMaskIntoConstraints = false
         signUpButton.translatesAutoresizingMaskIntoConstraints = false
+        loginButton.translatesAutoresizingMaskIntoConstraints = false
     
 
         NSLayoutConstraint.activate([
@@ -101,14 +112,24 @@ class SignUpViewController: UIViewController {
             signUpButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
             signUpButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
             signUpButton.heightAnchor.constraint(equalToConstant: 44),
+            
+            loginButton.topAnchor.constraint(equalTo: signUpButton.bottomAnchor, constant: 10),
+            loginButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
+            loginButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
+            loginButton.heightAnchor.constraint(equalToConstant: 44),
         ])
-        signUpButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+        signUpButton.addTarget(self, action: #selector(signupButtonTapped), for: .touchUpInside)
+        loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc func signupButtonTapped() {
+        //validate fields and submit
     }
     
     @objc func loginButtonTapped() {
-        let mainTabBarViewController = MainTabBarViewController()
+        let loginViewController = LoginViewController()
         UIView.transition(with: UIApplication.shared.windows.first!, duration: 0.5, options: .transitionFlipFromLeft, animations: {
-              UIApplication.shared.windows.first?.rootViewController = mainTabBarViewController
+              UIApplication.shared.windows.first?.rootViewController = loginViewController
           }, completion: nil)
     }
 }

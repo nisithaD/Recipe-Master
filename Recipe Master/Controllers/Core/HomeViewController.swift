@@ -9,9 +9,9 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
-    let recipes:[String] = ["Polos Curry","Chicken Curry","Black Pork Curry","Fruite Salad"]
+    var recipes = [Recipe]()
     
-    private let browseRecipeTable:UITableView = {
+    private let recipeTable:UITableView = {
         let table = UITableView()
         table.register(FoodCardCell.self, forCellReuseIdentifier: FoodCardCell.identifier)
         return table
@@ -29,7 +29,8 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Home"
-        
+        getRecipes()
+
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationItem.largeTitleDisplayMode = .always
         
@@ -37,15 +38,14 @@ class HomeViewController: UIViewController {
         
         navigationItem.searchController = searchController
         
-        view.addSubview(browseRecipeTable)
-        browseRecipeTable.delegate = self
-        browseRecipeTable.dataSource = self
-        
+        view.addSubview(recipeTable)
+        recipeTable.delegate = self
+        recipeTable.dataSource = self
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        browseRecipeTable.frame = view.bounds
+        recipeTable.frame = view.bounds
         definesPresentationContext = true
     }
     
@@ -55,26 +55,41 @@ class HomeViewController: UIViewController {
         navigationItem.largeTitleDisplayMode = .always
     }
     
+    
+    private func getRecipes() {
+        APICaller.shared.getAllRecipes { result in
+            switch result {
+            case .success(let recipes):
+                    self.recipes = recipes
+                DispatchQueue.main.async {
+                    self.recipeTable.reloadData()
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
 }
 
 extension HomeViewController:UITableViewDataSource,UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return recipes.count
+        return self.recipes.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: FoodCardCell.identifier, for: indexPath) as! FoodCardCell
-        let recipe = recipes[indexPath.row]
+       guard let cell = tableView.dequeueReusableCell(withIdentifier: FoodCardCell.identifier, for: indexPath) as? FoodCardCell else {
+            return UITableViewCell()
+        }
+        let recipe = self.recipes[indexPath.row]
         cell.configure(with: recipe)
         cell.selectionStyle = .none
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let cell = tableView.cellForRow(at: indexPath)
-        print(indexPath)
         let recipeSingleViewController = RecipeSingleViewController()
-        self.navigationController?.pushViewController(recipeSingleViewController,animated: true)
+        recipeSingleViewController.recipe_id = self.recipes[indexPath.row].id
+        self.navigationController?.pushViewController(recipeSingleViewController, animated: true)
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

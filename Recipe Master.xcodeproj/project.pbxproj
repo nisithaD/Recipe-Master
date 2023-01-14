@@ -3,12 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		7F012AED2967F82D00C3BF96 /* RecipeSingleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F012AEC2967F82D00C3BF96 /* RecipeSingleViewController.swift */; };
 		7F13F9CA2966B46700DF377C /* TitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F13F9C92966B46700DF377C /* TitleTableViewCell.swift */; };
+		7F1B2ED3296C77B00099A558 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 7F1B2ED2296C77B00099A558 /* SDWebImage */; };
+		7F1B2ED5296C77B00099A558 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7F1B2ED4296C77B00099A558 /* SDWebImageMapKit */; };
 		7F856439296318890006D4CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F856438296318890006D4CE /* AppDelegate.swift */; };
 		7F85643B296318890006D4CE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F85643A296318890006D4CE /* SceneDelegate.swift */; };
 		7F85643D296318890006D4CE /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F85643C296318890006D4CE /* MainTabBarViewController.swift */; };
@@ -20,6 +22,9 @@
 		7F8930E129651C62004A3EE2 /* FoodCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F8930E029651C62004A3EE2 /* FoodCardCell.swift */; };
 		7FBB5C4E2967066D006D81EE /* BrowseResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FBB5C4D2967066D006D81EE /* BrowseResultViewController.swift */; };
 		7FD2BF4D2967545B0020C727 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD2BF4C2967545B0020C727 /* LoginViewController.swift */; };
+		7FF0BC8B296B230E00EF72B4 /* API Caller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF0BC8A296B230E00EF72B4 /* API Caller.swift */; };
+		7FF0BC90296B314400EF72B4 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF0BC8F296B314400EF72B4 /* Recipe.swift */; };
+		7FF0BC94296B466600EF72B4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF0BC93296B466600EF72B4 /* Extensions.swift */; };
 		7FF8D3D229690F9D00751045 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FF8D3D129690F9D00751045 /* SignUpViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +44,9 @@
 		7F8930E029651C62004A3EE2 /* FoodCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodCardCell.swift; sourceTree = "<group>"; };
 		7FBB5C4D2967066D006D81EE /* BrowseResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseResultViewController.swift; sourceTree = "<group>"; };
 		7FD2BF4C2967545B0020C727 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		7FF0BC8A296B230E00EF72B4 /* API Caller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "API Caller.swift"; sourceTree = "<group>"; };
+		7FF0BC8F296B314400EF72B4 /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
+		7FF0BC93296B466600EF72B4 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		7FF8D3D129690F9D00751045 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -47,17 +55,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F1B2ED5296C77B00099A558 /* SDWebImageMapKit in Frameworks */,
+				7F1B2ED3296C77B00099A558 /* SDWebImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7F120D57296C1667006C18CD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		7F85642C296318880006D4CE = {
 			isa = PBXGroup;
 			children = (
 				7F856437296318890006D4CE /* Recipe Master */,
 				7F856436296318890006D4CE /* Products */,
+				7F120D57296C1667006C18CD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -72,6 +90,9 @@
 		7F856437296318890006D4CE /* Recipe Master */ = {
 			isa = PBXGroup;
 			children = (
+				7FF0BC92296B463400EF72B4 /* Resources */,
+				7FF0BC8E296B312700EF72B4 /* Models */,
+				7FF0BC89296B22E400EF72B4 /* Managers */,
 				7F8930DF29651C18004A3EE2 /* Views */,
 				7F85645029631DBA0006D4CE /* Controllers */,
 				7F856438296318890006D4CE /* AppDelegate.swift */,
@@ -131,6 +152,30 @@
 			path = General;
 			sourceTree = "<group>";
 		};
+		7FF0BC89296B22E400EF72B4 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				7FF0BC8A296B230E00EF72B4 /* API Caller.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		7FF0BC8E296B312700EF72B4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7FF0BC8F296B314400EF72B4 /* Recipe.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		7FF0BC92296B463400EF72B4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7FF0BC93296B466600EF72B4 /* Extensions.swift */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -147,6 +192,10 @@
 			dependencies = (
 			);
 			name = "Recipe Master";
+			packageProductDependencies = (
+				7F1B2ED2296C77B00099A558 /* SDWebImage */,
+				7F1B2ED4296C77B00099A558 /* SDWebImageMapKit */,
+			);
 			productName = "Recipe Master";
 			productReference = 7F856435296318890006D4CE /* Recipe Master.app */;
 			productType = "com.apple.product-type.application";
@@ -174,6 +223,9 @@
 				Base,
 			);
 			mainGroup = 7F85642C296318880006D4CE;
+			packageReferences = (
+				7F1B2ED1296C77B00099A558 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+			);
 			productRefGroup = 7F856436296318890006D4CE /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -205,9 +257,12 @@
 				7FBB5C4E2967066D006D81EE /* BrowseResultViewController.swift in Sources */,
 				7F85645C29631EA40006D4CE /* AccountViewController.swift in Sources */,
 				7F85643B296318890006D4CE /* SceneDelegate.swift in Sources */,
+				7FF0BC8B296B230E00EF72B4 /* API Caller.swift in Sources */,
 				7F85645929631E990006D4CE /* FavouriteViewController.swift in Sources */,
 				7FF8D3D229690F9D00751045 /* SignUpViewController.swift in Sources */,
 				7F85645629631E850006D4CE /* HomeViewController.swift in Sources */,
+				7FF0BC90296B314400EF72B4 /* Recipe.swift in Sources */,
+				7FF0BC94296B466600EF72B4 /* Extensions.swift in Sources */,
 				7F012AED2967F82D00C3BF96 /* RecipeSingleViewController.swift in Sources */,
 				7F13F9CA2966B46700DF377C /* TitleTableViewCell.swift in Sources */,
 				7F8930E129651C62004A3EE2 /* FoodCardCell.swift in Sources */,
@@ -405,6 +460,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7F1B2ED1296C77B00099A558 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = exactVersion;
+				version = 5.1.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7F1B2ED2296C77B00099A558 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7F1B2ED1296C77B00099A558 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		7F1B2ED4296C77B00099A558 /* SDWebImageMapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7F1B2ED1296C77B00099A558 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImageMapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7F85642D296318880006D4CE /* Project object */;
 }

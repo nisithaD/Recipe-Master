@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class FoodCardCell: UITableViewCell {
     static let identifier = "FoodCardCell"
@@ -30,7 +31,7 @@ class FoodCardCell: UITableViewCell {
         imageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         imageView.layer.cornerRadius = 8
         imageView.layer.masksToBounds = true
-        imageView.image = UIImage(named: "polos")
+//        imageView.image = UIImage(named: "polos")
         return imageView
     }()
     
@@ -41,6 +42,14 @@ class FoodCardCell: UITableViewCell {
         label.textColor = .black
         return label
     }()
+    
+    
+//    func configure(with recipe: Recipe) {
+//        recipeTitleLabel.text = recipe.name
+//        guard let url = URL(string: recipe.image!) else { return }
+//        recipeImageView.sd_setImage(with: url, completed: nil)
+//    }
+
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -66,11 +75,14 @@ class FoodCardCell: UITableViewCell {
         ])
     }
     
-    func configure(with recipe: String) {
-        recipeTitleLabel.text = recipe
+    func configure(with recipe: Recipe) {
+        recipeTitleLabel.text = recipe.name
+        guard let url = URL(string: recipe.image!) else { return }
+        recipeImageView.sd_setImage(with: url, completed: nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
 }

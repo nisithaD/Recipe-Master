@@ -49,9 +49,9 @@ class LoginViewController: UIViewController {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Recipe Master"
+        label.text = "Login"
         label.font = UIFont.systemFont(ofSize: 30, weight: .bold)
-        label.textColor = .systemBackground
+        label.textColor = .systemGray
         return label
     }()
     
@@ -60,6 +60,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
        
+        self.view.backgroundColor = .systemBackground
     
         self.view.addSubview(titleLabel)
         self.view.addSubview(usernameTextField)
@@ -100,13 +101,58 @@ class LoginViewController: UIViewController {
             signUpButton.heightAnchor.constraint(equalToConstant: 44),
         ])
         loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+        signUpButton.addTarget(self, action: #selector(signupButtonTapped), for: .touchUpInside)
     }
     
-    @objc func loginButtonTapped() {
-        let mainTabBarViewController = MainTabBarViewController()
+    @objc func signupButtonTapped() {
+        let signUpViewController = SignUpViewController()
         UIView.transition(with: UIApplication.shared.windows.first!, duration: 0.5, options: .transitionFlipFromLeft, animations: {
-              UIApplication.shared.windows.first?.rootViewController = mainTabBarViewController
+              UIApplication.shared.windows.first?.rootViewController = signUpViewController
           }, completion: nil)
+    }
+    
+    @IBAction func loginButtonTapped(_ sender: Any){
+        let email = usernameTextField.text!
+        let password = passwordTextField.text!
+        
+        let params: [String: Any] = ["email": email, "password": password]
+        
+        let url = URL(string: "http://iosrecipeapp-env.eba-mensumeb.us-east-1.elasticbeanstalk.com/api/login")!
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        
+        request.httpBody = try? JSONSerialization.data(withJSONObject: params)
+        
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let session = URLSession.shared
+        
+        session.dataTask(with: request){data, response, error in
+            if let error = error {
+                print(error)
+                return
+            }
+            guard let data = data else {
+                print("No data")
+                return
+            }
+            do{
+                let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+                let token = json?["token"] as? String
+                UserDefaults.standard.set(token,forKey: "token")
+                if((token) != nil){
+                    DispatchQueue.main.async {
+                        let mainTabBarViewController = MainTabBarViewController()
+                        UIView.transition(with: UIApplication.shared.windows.first!, duration: 0.5, options: .transitionFlipFromLeft, animations: {
+                            UIApplication.shared.windows.first?.rootViewController = mainTabBarViewController
+                        }, completion: nil)
+                    }
+                }
+            }catch let error{
+                print(error)
+            }
+        }.resume()
     }
 }
 

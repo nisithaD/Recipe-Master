@@ -40,7 +40,6 @@ extension FavouriteViewController: UITableViewDelegate,UITableViewDataSource{
             return UITableViewCell()
         }
         cell.titleRecipeLabel.text = recipes[indexPath.row]
-//        cell.titleRecipeImageView.image = UIImage(named: "polos")
         return cell
     }
     
