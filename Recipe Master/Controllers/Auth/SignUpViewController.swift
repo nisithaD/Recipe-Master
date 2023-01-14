@@ -4,9 +4,21 @@ class SignUpViewController: UIViewController {
 
     let mainTabBarViewController = MainTabBarViewController()
 
+    private let nameTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Name"
+        textField.borderStyle = .roundedRect
+        textField.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        textField.layer.borderWidth = 0.5
+        textField.layer.borderColor = UIColor.gray.cgColor
+        textField.layer.backgroundColor = UIColor.systemBackground.cgColor
+        textField.layer.cornerRadius = 5
+        return textField
+    }()
+    
     private let usernameTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Username"
+        textField.placeholder = "Email"
         textField.borderStyle = .roundedRect
         textField.heightAnchor.constraint(equalToConstant: 50).isActive = true
         textField.layer.borderWidth = 0.5
@@ -30,7 +42,7 @@ class SignUpViewController: UIViewController {
     }()
     private let passwordConfirmTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Password"
+        textField.placeholder = "Re-Password"
         textField.borderStyle = .roundedRect
         textField.heightAnchor.constraint(equalToConstant: 50).isActive = true
         textField.layer.borderWidth = 0.5
@@ -75,6 +87,7 @@ class SignUpViewController: UIViewController {
     
         self.view.addSubview(titleLabel)
         self.view.addSubview(usernameTextField)
+        self.view.addSubview(nameTextField)
         self.view.addSubview(passwordTextField)
         self.view.addSubview(passwordConfirmTextField)
         self.view.addSubview(signUpButton)
@@ -87,6 +100,7 @@ class SignUpViewController: UIViewController {
         passwordConfirmTextField.translatesAutoresizingMaskIntoConstraints = false
         signUpButton.translatesAutoresizingMaskIntoConstraints = false
         loginButton.translatesAutoresizingMaskIntoConstraints = false
+        nameTextField.translatesAutoresizingMaskIntoConstraints = false
     
 
         NSLayoutConstraint.activate([
@@ -95,7 +109,12 @@ class SignUpViewController: UIViewController {
             titleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
             titleLabel.heightAnchor.constraint(equalToConstant: 44),
 
-            usernameTextField.topAnchor.constraint(equalTo: self.view.topAnchor,constant: 200),
+            
+            nameTextField.topAnchor.constraint(equalTo: self.view.topAnchor,constant: 200),
+            nameTextField.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
+            nameTextField.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
+            
+            usernameTextField.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 10),
             usernameTextField.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
             usernameTextField.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
 
@@ -107,7 +126,6 @@ class SignUpViewController: UIViewController {
             passwordConfirmTextField.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
             passwordConfirmTextField.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
         
-            
             signUpButton.topAnchor.constraint(equalTo: passwordConfirmTextField.bottomAnchor, constant: 10),
             signUpButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
             signUpButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
@@ -123,7 +141,49 @@ class SignUpViewController: UIViewController {
     }
     
     @objc func signupButtonTapped() {
-        //validate fields and submit
+        let email = usernameTextField.text!
+        let name = nameTextField.text!
+        let password = passwordTextField.text!
+        let confirm_password = passwordConfirmTextField.text!
+        
+        let params: [String: Any] = ["email": email, "password": password, "password_confirmation": confirm_password, "name": name]
+        
+        let url = URL(string: "http://iosrecipeapp-env.eba-mensumeb.us-east-1.elasticbeanstalk.com/api/register")!
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        
+        request.httpBody = try? JSONSerialization.data(withJSONObject: params)
+        
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let session = URLSession.shared
+        
+        session.dataTask(with: request){data, response, error in
+            if let error = error {
+                print(error)
+                return
+            }
+            guard let data = data else {
+                print("No data")
+                return
+            }
+            do{
+                let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+                let token = json?["token"] as? String
+                UserDefaults.standard.set(token,forKey: "token")
+                if((token) != nil){
+                    DispatchQueue.main.async {
+                        let mainTabBarViewController = MainTabBarViewController()
+                        UIView.transition(with: UIApplication.shared.windows.first!, duration: 0.5, options: .transitionFlipFromLeft, animations: {
+                            UIApplication.shared.windows.first?.rootViewController = mainTabBarViewController
+                        }, completion: nil)
+                    }
+                }
+            }catch let error{
+                print(error)
+            }
+        }.resume()
     }
     
     @objc func loginButtonTapped() {
