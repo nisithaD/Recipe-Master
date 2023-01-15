@@ -75,7 +75,7 @@ class SignUpViewController: UIViewController {
         let label = UILabel()
         label.text = "Recipe Master"
         label.font = UIFont.systemFont(ofSize: 30, weight: .bold)
-        label.textColor = .systemBackground
+        label.textColor = .systemGray
         return label
     }()
     
@@ -83,7 +83,7 @@ class SignUpViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        self.view.backgroundColor = .systemBackground
     
         self.view.addSubview(titleLabel)
         self.view.addSubview(usernameTextField)
