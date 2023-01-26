@@ -180,7 +180,6 @@ class RecipeSingleViewController: UIViewController {
                 print("Error: \(error)")
                 return
             }
-            print(response)
         }
         task.resume()
       }

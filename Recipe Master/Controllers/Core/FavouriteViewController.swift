@@ -30,9 +30,8 @@ class FavouriteViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Favourites"
-        getUserDetails()
-        getAllFavouriteRecipes()
 
+        
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationItem.largeTitleDisplayMode = .always
         
@@ -55,6 +54,9 @@ class FavouriteViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .always
+        
+        getUserDetails()
+        getAllFavouriteRecipes()
     }
     
     
@@ -105,7 +107,7 @@ class FavouriteViewController: UIViewController {
         }
     }
     
-    private func getAllFavouriteRecipes() {
+    public func getAllFavouriteRecipes() {
         let token = UserDefaults.standard.string(forKey: "token")
         if (token == nil) {
             let loginViewController = LoginViewController()
