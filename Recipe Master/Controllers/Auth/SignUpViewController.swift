@@ -171,6 +171,7 @@ class SignUpViewController: UIViewController {
             do{
                 let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
                 let token = json?["token"] as? String
+                
                 UserDefaults.standard.set(token,forKey: "token")
                 if((token) != nil){
                     DispatchQueue.main.async {
@@ -178,6 +179,13 @@ class SignUpViewController: UIViewController {
                         UIView.transition(with: UIApplication.shared.windows.first!, duration: 0.5, options: .transitionFlipFromLeft, animations: {
                             UIApplication.shared.windows.first?.rootViewController = mainTabBarViewController
                         }, completion: nil)
+                    }
+                }else{
+                    let alert = UIAlertController(title: "Error", message: "Sign-Up Failed. Please check the fields and try again.", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    DispatchQueue.main.async {
+                        self.present(alert, animated: true, completion: nil)
                     }
                 }
             }catch let error{

@@ -164,7 +164,6 @@ class RecipeSingleViewController: UIViewController {
     
     @objc func addToFavorites() {
         let recipeID=(self.recipe_id!)
-//        UserDefaults.standard.removeObject(forKey: "token")
         let token = UserDefaults.standard.string(forKey: "token")
         if token == nil {
             let loginViewController = LoginViewController()
@@ -174,11 +173,24 @@ class RecipeSingleViewController: UIViewController {
         var request = URLRequest(url: url)
         request.addValue("Bearer \(token!)", forHTTPHeaderField: "Authorization")
         request.httpMethod = "POST"
-        // Set any additional headers or body data here as needed
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
                 print("Error: \(error)")
                 return
+            }else{
+                do{
+                    let json = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any]
+                    let message = json?["message"] as? String
+                    
+                    let alert = UIAlertController(title: "Favourite", message: message, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    DispatchQueue.main.async {
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                }catch let error{
+                    print(error)
+                }
             }
         }
         task.resume()

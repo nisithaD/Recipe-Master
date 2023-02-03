@@ -9,7 +9,7 @@ import UIKit
 import SDWebImage
 
 class FavouriteViewController: UIViewController {
-    var recipes = [Recipe]()
+    var recipes: [Recipe] = []
     var user_id = Int()
     
     private let recipeTable:UITableView = {
@@ -31,7 +31,6 @@ class FavouriteViewController: UIViewController {
         super.viewDidLoad()
         title = "Favourites"
 
-        
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationItem.largeTitleDisplayMode = .always
         
@@ -54,7 +53,7 @@ class FavouriteViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .always
-        
+        recipes = []
         getUserDetails()
         getAllFavouriteRecipes()
     }
@@ -114,8 +113,8 @@ class FavouriteViewController: UIViewController {
             present(loginViewController, animated: true, completion: nil)
         } else {
             guard let url = URL(string: "http://iosrecipeapp-env.eba-mensumeb.us-east-1.elasticbeanstalk.com/api/favourite/user/\(user_id)") else { return }
-            print(url)
             var request = URLRequest(url: url)
+            request.cachePolicy = .reloadIgnoringCacheData
             request.httpMethod = "GET"
             request.addValue("Bearer \(token!)", forHTTPHeaderField: "Authorization")
             

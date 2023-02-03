@@ -91,6 +91,7 @@ class AccountViewController: UIViewController {
     
     @objc func logoutButtonTapped() {
         let token = UserDefaults.standard.string(forKey: "token")
+        
         guard let url = URL(string: "http://iosrecipeapp-env.eba-mensumeb.us-east-1.elasticbeanstalk.com/api/logout") else {return}
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
